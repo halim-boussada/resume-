@@ -1,109 +1,75 @@
 DROP DATABASE IF EXISTS project;
 CREATE DATABASE project;
 USE project;
-CREATE TABLE users (
+CREATE TABLE users(
     id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    fullname varchar (50) NOT NULL,
-    username varchar (50) NOT NULL,
-    secretinfo varchar (150) NOT NULL,
-    password varchar (250) NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  username varchar(100),
+  email varchar(100),
+  password varchar(1000),
+  Cohort varchar(100),
+  Role varchar(50)
 );
-CREATE TABLE organizations (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar (50) NOT NULL UNIQUE,
-    description varchar (250) NOT NULL,
-    userID int NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (userID) REFERENCES users (id),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE Modules (
+  id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nameModule varchar(40),
+  video varchar(5000),
+  nameCours varchar(20)
 );
-CREATE TABLE projects (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar (50) NOT NULL,
-    description varchar (250),
-    organizationID int NOT NULL,
-    userID int NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (organizationID) REFERENCES organizations (id),
-    FOREIGN KEY (userID) REFERENCES users (id)
+CREATE TABLE Content (
+  id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  title varchar(30),
+  description varchar(10000),
+  idModule INT(4)
 );
-CREATE TABLE feeds (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar (50) NOT NULL UNIQUE,
-    description varchar (250) NOT NULL,
-    type varchar (50) NOT NULL,
-    projectID int NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (projectID) REFERENCES projects (id)
+CREATE TABLE Courses(
+    id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  content text(16383),
+  nameCours varchar(30),
+  Creator varchar(30),
+  videoUrl text(10000),
+  imageUrl text(10000),
+  Cohort   varchar(100),
+  visibility boolean not null default 0
 );
-CREATE TABLE privileges (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar (255) NOT NULL,
-    PRIMARY KEY (ID)
+CREATE TABLE Cohort(
+  id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nameCohort varchar(100),
+  nameCours varchar(100)
 );
-CREATE TABLE privll_user (
-    id int NOT NULL AUTO_INCREMENT,
-    userID int NOT NULL,
-    privID int NOT NULL,
-    FOREIGN KEY (userID) REFERENCES users (id),
-    FOREIGN KEY (userID) REFERENCES privileges (id),
-    PRIMARY KEY (ID)
+CREATE TABLE Instructors(
+    id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+nameInstructor varchar(100),
+email varchar(400),
+password varchar(100),
+nameCohort varchar(100)
 );
-CREATE TABLE issues (
-    id int NOT NULL AUTO_INCREMENT,
-    title varchar (50) NOT NULL,
-    description varchar (250) NOT NULL,
-    state varchar (50) NOT NULL,
-    posterID int NOT NULL,
-    projectID int NOT NULL,
-    FOREIGN KEY (projectID) REFERENCES projects (id),
-    FOREIGN KEY (posterID) REFERENCES users (id),
-    PRIMARY KEY (ID)
+CREATE TABLE CoursCreator(
+    id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nameCoursCreator varchar(100),
+    email varchar(400),
+    password varchar(100)
 );
-/**********Change the posterID name to userID*********/
-CREATE TABLE features (
-    id int NOT NULL AUTO_INCREMENT,
-    title varchar (50) NOT NULL UNIQUE,
-    description varchar (250) NOT NULL,
-    posterID int NOT NULL,
-    projectID int NOT NULL,
-    FOREIGN KEY (projectID) REFERENCES projects (id),
-    FOREIGN KEY (posterID) REFERENCES users (id),
-    state varchar (50) NOT NULL,
-    PRIMARY KEY (ID)
+CREATE TABLE Stud(
+id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    firstname VARCHAR (50),
+    lastname VARCHAR (50) ,
+    password VARCHAR (150) NOT NULL,
+    email VARCHAR (50) NOT NULL ,
+    token varchar (300) ,
+    nameCohort VARCHAR(100)
 );
-CREATE TABLE comments (
-    id int NOT NULL AUTO_INCREMENT,
-    text varchar (250) NOT NULL,
-    userID int NOT NULL,
-    issueID int NOT NULL,
-    FOREIGN KEY (userID) REFERENCES users (id),
-    FOREIGN KEY (issueID) REFERENCES issues (id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (ID)
+CREATE TABLE progress(
+  idStud INT(4),
+  numberOfModulesCompleted INT(4)
 );
-CREATE TABLE messages (
-    id int NOT NULL AUTO_INCREMENT,
-    message_text text NOT NULL,
-    subject varchar (250) NOT NULL,
-    senderID int NOT NULL,
-    receiverID int NOT NULL,
-    FOREIGN KEY (senderID) REFERENCES users (id),
-    FOREIGN KEY (receiverID) REFERENCES users (id),
-    PRIMARY KEY (ID)
+CREATE TABLE points(
+  idStud INT(4),
+  points int(10)
 );
-CREATE TABLE useOrg (
-    id int NOT NULL AUTO_INCREMENT,
-    userID int NOT NULL,
-    orgID int NOT NULL,
-    primary key (id)
-);
-CREATE TABLE globalChat (
-     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-     userID int,
-     username varchar (50) NOT NULL,
-     messagetext TEXT,
-     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,   
-     FOREIGN KEY (userID) REFERENCES users(id)
-);
+INSERT INTO Modules (nameModule) values ("node js");
+INSERT INTO Modules (nameModule) values ("node js");
+INSERT INTO Modules (nameModule) values ("node js");
+INSERT INTO Modules (nameModule) values ("node js");
+INSERT INTO Modules (nameModule) values ("node js");
+INSERT INTO Modules (nameModule) values ("node js");

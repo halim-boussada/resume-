@@ -60,12 +60,12 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-var mailOptions = {
-  from: "sami.benchaalia@sesame.com.tn",
-  to: "desparosaminew@gmail.com",
-  subject: "Sending Email using Node.js",
-  text: "That was easy!",
-};
+// var mailOptions = {
+//   from: 'sami.benchaalia@sesame.com.tn',
+//   to: 'desparosaminew@gmail.com',
+//   subject: 'Sending Email using Node.js',
+//   text: 'That was easy!'
+// };
 
 // transporter.sendMail(mailOptions, function(error, info){
 //   if (error) {
@@ -74,19 +74,41 @@ var mailOptions = {
 //     console.log('Email sent: ' + info.response);
 //   }
 // });
-/////////////////////////
+///////////////////////
 //// Hey Rbk here i'm setting new Users //
 app.post("/users", (req, res) => {
   var array = [
     req.body.username,
     req.body.email,
     hash(req.body.password),
+    req.body.cohort,
     req.body.Role,
   ];
   db.adduser(array, (err, data) => {
     err ? console.log(err) : res.send(data);
   });
+
+  let mailOptions = {
+    from: "sami.benchaalia@sesame.com.tn",
+    to: req.body.email,
+    subject: "Welcome To Rbk Platform",
+    text:
+      "Dear" +
+      req.body.username +
+      "To login in your Account Please use this username :" +
+      req.body.username +
+      "and password" +
+      req.body.password,
+  };
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
 });
+
 //////////////// Get all students ////////
 app.get("/students", (req, res) => {
   db.getstudents((err, data) => {
@@ -131,4 +153,29 @@ app.post("/Cours", (req, res) => {
   });
 });
 
+/////////////auaathentification////////////
+app.post("/login", (req, res) => {
+  var array = [req.body.username, hash(req.body.password)];
+  db.getallusers((err, data) => {
+    if (err) throw err;
+    myData = data.map((element) => Object.values(element)).flat();
+    if (!myData.includes(req.body.username)) {
+      res.send(false);
+      return;
+    }
+    db.logusers;
+  });
+});
+app.put("/updateCC/:id", (req, res) => {
+  var array = [req.body.cohort, req.params.id];
+  db.assignCohort(array, (err, data) => {
+    err ? console.log(err) : res.send(data);
+  });
+});
+app.delete("/delete/:id", (req, res) => {
+  var array = [req.params.id];
+  db.deleteUser(array, (err, data) => {
+    err ? console.log(err) : res.send(data);
+  });
+});
 app.listen(port, () => console.log(`server is listening on port ${port}`));

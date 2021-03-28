@@ -11,7 +11,7 @@ export class AdminComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get("https://localhost:3000/instractor").subscribe((data) => {
+    this.http.get("http://localhost:3000/students").subscribe((data) => {
       console.log(data);
     });
   }
@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit {
       cohort,
       Role: "instractor",
     };
-    this.http.post("https://localhost:3000/users", obj).subscribe((data) => {
+    this.http.post("http://localhost:3000/users", obj).subscribe((data) => {
       Swal.fire("added!", "success");
     });
   }

@@ -7,7 +7,8 @@ CREATE TABLE users(
   email varchar(100),
   password varchar(1000),
   Cohort varchar(100),
-  Role varchar(50)
+  Role varchar(50) , 
+  firstTime boolean not null default false
 );
 
 CREATE TABLE Modules (
@@ -30,7 +31,7 @@ CREATE TABLE Courses(
   videoUrl text(10000),
   imageUrl text(10000),
   Cohort   varchar(100),
-  visibility boolean not null default 0
+  visibility boolean not null default false
 );
 CREATE TABLE Cohort(
   id INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -73,3 +74,4 @@ INSERT INTO Modules (nameModule) values ("node js");
 INSERT INTO Modules (nameModule) values ("node js");
 INSERT INTO Modules (nameModule) values ("node js");
 INSERT INTO Modules (nameModule) values ("node js");
+

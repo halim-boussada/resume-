@@ -109,39 +109,39 @@
 
       <!-- The Team -->
       <div class="w3-row-padding w3-grayscale">
-        <div class="w3-col m4 w3-margin-bottom">
-          <div class="w3-light-grey">
-            <div class="w3-container">
-              <h3>John Doe</h3>
-              <p class="w3-opacity">CEO & Founder</p>
-              <p>
-                Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse
-                sodales pellentesque elementum.
-              </p>
+        <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
+          <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+              {{d?.username }}
+              <i
+                class="material-icons"
+                style="cursor: pointer;"
+                (click)="delete(d.id)"
+                >delete</i
+              >
             </div>
-          </div>
-        </div>
-        <div class="w3-col m4 w3-margin-bottom">
-          <div class="w3-light-grey">
-            <div class="w3-container">
-              <h3>Jane Doe</h3>
-              <p class="w3-opacity">Designer</p>
-              <p>
-                Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse
-                sodales pellentesque elementum.
+            <div class="card-body">
+              <h5 class="card-title">{{d?.email }}</h5>
+              <p class="card-text">
+                Cours Creator for {{d?.Cohort }}
               </p>
-            </div>
-          </div>
-        </div>
-        <div class="w3-col m4 w3-margin-bottom">
-          <div class="w3-light-grey">
-            <div class="w3-container">
-              <h3>Mike Ross</h3>
-              <p class="w3-opacity">Architect</p>
-              <p>
-                Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse
-                sodales pellentesque elementum.
-              </p>
+              <div class="w3-section">
+                <label>update cohort</label>
+                <select #cohort name="cohort" class="w3-input w3-border">
+                  <option>{{d?.Cohort }}</option>
+                  <option>Cohort 1</option>
+                  <option>Cohort 2</option>
+                  <option>Cohort 3</option>
+                  <option>Cohort 4</option>
+                  <option>Cohort 5</option>
+                </select>
+              </div>
+              <button
+                class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+                (click)="updateCohort(cohort.value , d.id)"
+              >
+                save
+              </button>
             </div>
           </div>
         </div>

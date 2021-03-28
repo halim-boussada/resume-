@@ -9,22 +9,41 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AddCoursCreatorComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
-
+  data: any;
   ngOnInit(): void {
-    this.http.get("https://localhost:3000/instractor").subscribe((data) => {
+    this.http.get("http://localhost:3000/courscreator").subscribe((data) => {
       console.log(data);
+      this.data = data;
     });
   }
+  updateCohort(cohort, id) {
+    this.http
+      .put(`http://localhost:3000/updateCC/${id}`, { cohort })
+      .subscribe((data) => {
+        console.log(data);
+        Swal.fire("Updated!", "success");
+        this.ngOnInit();
+      });
+  }
+  delete(id) {
+    this.http.delete(`http://localhost:3000/delete/${id}`).subscribe((data) => {
+      console.log(data);
+      Swal.fire("deleted!", "success");
+      this.ngOnInit();
+    });
+  }
+
   add(username, email, password, cohort) {
     var obj = {
       username,
       email,
       password,
       cohort,
-      Role: "instractor",
+      Role: "coursCreator",
     };
-    this.http.post("https://localhost:3000/users", obj).subscribe((data) => {
+    this.http.post("http://localhost:3000/users", obj).subscribe((data) => {
       Swal.fire("added!", "success");
+      this.ngOnInit();
     });
   }
   moveto(to) {

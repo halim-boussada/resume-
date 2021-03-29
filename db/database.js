@@ -26,6 +26,14 @@ const getallusers = (callback) => {
   });
 };
 
+const getallCourses = (callback) => {
+  let sql = `select * from Courses;`;
+  connection.query(sql, (err, data) => {
+    if (err) throw callback(err, null);
+    callback(null, data);
+  });
+};
+
 const getstudents = (callback) => {
   let sql = `select * from users where Role="student";`;
   connection.query(sql, (err, data) => {
@@ -78,23 +86,40 @@ const deleteUser = (arr, callback) => {
     callback(null, data);
   });
 };
-
-const addCours = (arr, callback) => {
-  let sql =
-    "insert into Courses ( content ,nameCours,videoUrl,imageUrl ,Cohort )  values (?,?,?,?,?);";
+const getoneCours = (arr, callback) => {
+  let sql = "select * FROM Courses WHERE id = ?";
   connection.query(sql, arr, (err, data) => {
     if (err) throw callback(err, null);
     callback(null, data);
   });
 };
-const logusers = (username, callback) => {
-  let sql = `select password from companies where name = ?;`;
-  connection.query(sql, (err, data) => {
+const addCours = (arr, callback) => {
+  let sql =
+    "insert into Courses ( content ,nameCours,videoUrl,imageUrl ,Cohort ,Creator )  values (?,?,?,?,?,?);";
+  connection.query(sql, arr, (err, data) => {
+    if (err) throw callback(err, null);
+    callback(null, data);
+  });
+};
+const logusers = (arr, callback) => {
+  let sql = "select * from users where username = ? and password=?";
+  connection.query(sql, arr, (err, data) => {
+    if (err) throw callback(err, null);
+    callback(null, data);
+  });
+};
+//////////////Update PASSWORD /////////
+const updatepassword = (arr, callback) => {
+  let sql = "UPDATE users SET password= ? where id=?";
+  connection.query(sql, arr, (err, data) => {
     if (err) throw callback(err, null);
     callback(null, data);
   });
 };
 module.exports = {
+  updatepassword,
+  getoneCours,
+  getallCourses,
   deleteUser,
   deleteCours,
   modifyCours,

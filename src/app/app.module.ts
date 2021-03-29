@@ -9,6 +9,8 @@ import { AddInstractorComponent } from "./add-instractor/add-instractor.componen
 import { AddCoursCreatorComponent } from "./add-cours-creator/add-cours-creator.component";
 import { AddCoursComponent } from "./add-cours/add-cours.component";
 import { ManagCoursesComponent } from "./manag-courses/manag-courses.component";
+import { OneCoursComponent } from './one-cours/one-cours.component';
+import { RbkComponent } from './rbk/rbk.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { ManagCoursesComponent } from "./manag-courses/manag-courses.component";
     AddCoursCreatorComponent,
     AddCoursComponent,
     ManagCoursesComponent,
+    OneCoursComponent,
+    RbkComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],

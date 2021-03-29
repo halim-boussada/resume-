@@ -11,8 +11,22 @@ import { HttpClient } from "@angular/common/http";
 export class ManagCoursesComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
 
-  ngOnInit(): void {}
+  data: any;
+  count: any = 0;
+  ngOnInit(): void {
+    this.http.get("http://localhost:3000/allcourses").subscribe((data) => {
+      console.log(data);
+      this.data = data;
+      this.data.map((e) => {
+        this.count++;
+      });
+    });
+  }
 
+  goOneCours(id) {
+    localStorage.setItem("Cid", id);
+    this.router.navigateByUrl("/oneC");
+  }
   moveto(to) {
     this.router.navigateByUrl("/" + to);
   }

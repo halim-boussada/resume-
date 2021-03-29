@@ -8,7 +8,7 @@ CREATE TABLE users(
   password varchar(1000),
   Cohort varchar(100),
   Role varchar(50) , 
-  firstTime boolean not null default false
+  firstTime boolean not null default true
 );
 
 CREATE TABLE Modules (

@@ -80,7 +80,7 @@ app.post("/users", (req, res) => {
   var array = [
     req.body.username,
     req.body.email,
-    hash(req.body.password),
+    req.body.password,
     req.body.cohort,
     req.body.Role,
   ];
@@ -116,6 +116,12 @@ app.get("/students", (req, res) => {
     res.send(data);
   });
 });
+app.get("/oneCours/:id", (req, res) => {
+  db.getoneCours([req.params.id], (err, data) => {
+    if (err) throw err;
+    res.send(data);
+  });
+});
 //////////////// Get all instractors ////////
 
 app.get("/instractor", (req, res) => {
@@ -127,6 +133,12 @@ app.get("/instractor", (req, res) => {
 //////////////// Get all coursCreators ////////
 app.get("/courscreator", (req, res) => {
   db.getCoursCreator((err, data) => {
+    if (err) throw err;
+    res.send(data);
+  });
+});
+app.get("/allcourses", (req, res) => {
+  db.getallCourses((err, data) => {
     if (err) throw err;
     res.send(data);
   });
@@ -147,6 +159,7 @@ app.post("/Cours", (req, res) => {
     req.body.videoUrl,
     req.body.imageUrl,
     req.body.Cohort,
+    req.body.Creator,
   ];
   db.addCours(array, (err, data) => {
     err ? console.log(err) : res.send(data);
@@ -154,21 +167,22 @@ app.post("/Cours", (req, res) => {
 });
 
 /////////////auaathentification////////////
-app.post("/login", (req, res) => {
-  var array = [req.body.username, hash(req.body.password)];
-  db.getallusers((err, data) => {
-    if (err) throw err;
-    myData = data.map((element) => Object.values(element)).flat();
-    if (!myData.includes(req.body.username)) {
-      res.send(false);
-      return;
-    }
-    db.logusers;
-  });
-});
+
 app.put("/updateCC/:id", (req, res) => {
   var array = [req.body.cohort, req.params.id];
   db.assignCohort(array, (err, data) => {
+    err ? console.log(err) : res.send(data);
+  });
+});
+app.post("/updatepassword", (req, res) => {
+  var array = [req.body.password, req.body.id];
+  db.updatepassword(array, (err, data) => {
+    err ? console.log(err) : res.send(data);
+  });
+});
+app.post("/login", (req, res) => {
+  var array = [req.body.username, req.body.password];
+  db.logusers(array, (err, data) => {
     err ? console.log(err) : res.send(data);
   });
 });

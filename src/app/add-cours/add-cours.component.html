@@ -105,50 +105,6 @@
 
       <!-- Photo grid (modal) -->
 
-      <!-- Modal for full size images on click-->
-
-      <!-- The Team -->
-      <div class="w3-row-padding w3-grayscale">
-        <div class="w3-col m4 w3-margin-bottom">
-          <div class="w3-light-grey">
-            <div class="w3-container">
-              <h3>John Doe</h3>
-              <p class="w3-opacity">CEO & Founder</p>
-              <p>
-                Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse
-                sodales pellentesque elementum.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="w3-col m4 w3-margin-bottom">
-          <div class="w3-light-grey">
-            <div class="w3-container">
-              <h3>Jane Doe</h3>
-              <p class="w3-opacity">Designer</p>
-              <p>
-                Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse
-                sodales pellentesque elementum.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="w3-col m4 w3-margin-bottom">
-          <div class="w3-light-grey">
-            <div class="w3-container">
-              <h3>Mike Ross</h3>
-              <p class="w3-opacity">Architect</p>
-              <p>
-                Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse
-                sodales pellentesque elementum.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Packages / Pricing Tables -->
-
       <!-- Contact -->
       <div class="w3-container" id="contact" style="margin-top: 75px;">
         <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
@@ -159,34 +115,55 @@
         </p>
         <div class="w3-section">
           <label>Cours name</label>
-          <input class="w3-input w3-border" type="text" name="Name" required />
+          <input
+            #nameCours
+            class="w3-input w3-border"
+            type="text"
+            name="Name"
+            required
+          />
         </div>
         <div class="w3-section">
           <label>vedio</label>
-          <input class="w3-input w3-border" type="text" name="Email" required />
+          <input
+            #videoUrl
+            class="w3-input w3-border"
+            type="text"
+            name="Email"
+            required
+          />
         </div>
         <div class="w3-section">
           <label>image url</label>
-          <input class="w3-input w3-border" type="text" name="pass" required />
+          <input
+            #imageUrl
+            class="w3-input w3-border"
+            type="text"
+            name="pass"
+            required
+          />
         </div>
         <div class="w3-section">
           <label>content</label>
-          <textarea name="cohort" class="w3-input w3-border"> </textarea>
+          <textarea #content name="cohort" class="w3-input w3-border">
+          </textarea>
         </div>
         <div class="w3-section">
           <label>Cohort</label>
-          <select name="cohort" class="w3-input w3-border">
+          <select #Cohort name="cohort" class="w3-input w3-border">
             <option>Cohort 1</option>
             <option>Cohort 2</option>
             <option>Cohort 3</option>
             <option>Cohort 4</option>
             <option>Cohort 5</option>
+            <option>everyone</option>
           </select>
         </div>
         <button
           class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+          (click)="addCours(content.value, nameCours.value, videoUrl.value, imageUrl.value, Cohort.value)"
         >
-          Add Student
+          Add cours
         </button>
       </div>
 

@@ -11,7 +11,21 @@ export class AddCoursComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {}
-
+  addCours(content, nameCours, videoUrl, imageUrl, Cohort) {
+    var obj = {
+      content: content,
+      nameCours: nameCours,
+      videoUrl: videoUrl,
+      imageUrl: imageUrl,
+      Cohort: Cohort,
+      Creator: "admin",
+    };
+    console.log(obj);
+    this.http.post("http://localhost:3000/Cours", obj).subscribe((data) => {
+      Swal.fire("added!", "success");
+      this.ngOnInit();
+    });
+  }
   moveto(to) {
     this.router.navigateByUrl("/" + to);
   }

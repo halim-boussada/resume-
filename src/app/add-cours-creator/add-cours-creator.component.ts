@@ -10,10 +10,16 @@ import { HttpClient } from "@angular/common/http";
 export class AddCoursCreatorComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) {}
   data: any;
+  count: any = 0;
   ngOnInit(): void {
     this.http.get("http://localhost:3000/courscreator").subscribe((data) => {
       console.log(data);
       this.data = data;
+      this.data.map((e) => {
+        if (e.Role === "coursCreator") {
+          this.count++;
+        }
+      });
     });
   }
   updateCohort(cohort, id) {

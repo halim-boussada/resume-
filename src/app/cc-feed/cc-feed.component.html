@@ -47,33 +47,10 @@
       >
       <div class="w3-container">
         <h3 class="w3-padding-64">
-          <b>RBK<br />Admin</b>
+          <b>RBK<br />Cours Creator</b>
         </h3>
       </div>
-      <div class="w3-bar-block">
-        <a (click)="moveto('addS')" class="w3-bar-item w3-button w3-hover-white"
-          >Students</a
-        >
-        <a (click)="moveto('addI')" class="w3-bar-item w3-button w3-hover-white"
-          >Instractors</a
-        >
-        <a
-          (click)="moveto('addCC')"
-          class="w3-bar-item w3-button w3-hover-white"
-          >Cours Creators</a
-        >
-        <a (click)="moveto('addC')" class="w3-bar-item w3-button w3-hover-white"
-          >Add Cours</a
-        >
-        <a
-          (click)="moveto('manageC')"
-          class="w3-bar-item w3-button w3-hover-white"
-          >Manage Courses</a
-        >
-        <a (click)="moveto('vis')" class="w3-bar-item w3-button w3-hover-white"
-          >Visibility</a
-        >
-      </div>
+      <div class="w3-bar-block"></div>
     </nav>
 
     <!-- Top menu on small screens -->
@@ -100,62 +77,8 @@
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left: 340px; margin-right: 40px;">
       <!-- Header -->
-      <div class="w3-container" style="margin-top: 80px;" id="showcase">
-        <h1 class="w3-jumbo"><b>Instractors List</b></h1>
-        <h1 class="w3-xxxlarge w3-text-red">
-          <b>{{ count }} Cours Creator</b>
-        </h1>
-        <hr style="width: 50px; border: 5px solid red;" class="w3-round" />
-      </div>
 
       <!-- Photo grid (modal) -->
-
-      <!-- Modal for full size images on click-->
-
-      <!-- The Team -->
-      <div class="w3-row-padding w3-grayscale">
-        <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
-          <div
-            class="card text-dark bg-light mb-3"
-            style="max-width: 18rem;"
-            *ngIf="d?.Role === 'Instractor'"
-          >
-            <div class="card-header">
-              {{d?.username }}
-              <i
-                class="material-icons"
-                style="cursor: pointer;"
-                (click)="delete(d.id)"
-                >delete</i
-              >
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">{{d?.email }}</h5>
-              <p class="card-text">
-                Instractor for {{d?.Cohort }}
-              </p>
-              <div class="w3-section">
-                <label>update cohort</label>
-                <select #cohort name="cohort" class="w3-input w3-border">
-                  <option>{{d?.Cohort }}</option>
-                  <option>Cohort 1</option>
-                  <option>Cohort 2</option>
-                  <option>Cohort 3</option>
-                  <option>Cohort 4</option>
-                  <option>Cohort 5</option>
-                </select>
-              </div>
-              <button
-                class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
-                (click)="updateCohort(cohort.value , d.id)"
-              >
-                save
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Packages / Pricing Tables -->
 
       <!-- Contact -->
       <div class="w3-container" id="contact" style="margin-top: 75px;">
@@ -166,53 +89,75 @@
           with the details :) We love meeting new people!
         </p>
         <div class="w3-section">
-          <label>Instractor name</label>
+          <label>Cours name</label>
           <input
+            #nameCours
             class="w3-input w3-border"
-            #username
             type="text"
             name="Name"
             required
           />
         </div>
         <div class="w3-section">
-          <label>Email</label>
+          <label>vedio</label>
           <input
-            #email
+            #videoUrl
             class="w3-input w3-border"
-            type="email"
+            type="text"
             name="Email"
             required
           />
         </div>
         <div class="w3-section">
-          <label>initieal password</label>
+          <label>image url</label>
           <input
+            #imageUrl
             class="w3-input w3-border"
-            type="password"
+            type="text"
             name="pass"
-            #pass
             required
           />
         </div>
         <div class="w3-section">
-          <label>Cohort</label>
-          <select #cohort name="cohort" class="w3-input w3-border">
-            <option>Cohort 1</option>
-            <option>Cohort 2</option>
-            <option>Cohort 3</option>
-            <option>Cohort 4</option>
-            <option>Cohort 5</option>
-          </select>
+          <label>content</label>
+          <textarea #content name="cohort" class="w3-input w3-border">
+          </textarea>
         </div>
+
         <button
           class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
-          (click)="add(username.value , email.value , pass.value , cohort.value)"
+          (click)="addCours(content.value, nameCours.value, videoUrl.value, imageUrl.value,this.Cohort)"
         >
-          Add Student
+          Add cours
         </button>
       </div>
-
+      <div class="w3-row-padding w3-grayscale">
+        <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
+          <div
+            class="card text-dark bg-light mb-3"
+            style="max-width: 18rem;"
+            *ngIf="d?.Cohort === Cohort  || d?.Cohort === 'everyone'"
+          >
+            <div class="card-header">
+              {{d?.nameCours }}
+              <i class="material-icons" style="cursor: pointer;">delete</i>
+            </div>
+            <!-- (click)="delete(d.id)" -->
+            <div class="card-body">
+              <h5 class="card-title">Created by {{d?.Creator }}</h5>
+              <p class="card-text">
+                Cours is for {{d?.Cohort }}
+              </p>
+              <button
+                class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+                (click)="goOneCours(d.id)"
+              >
+                Discover
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- End page content -->
     </div>
 

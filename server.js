@@ -9,6 +9,7 @@ const multer = require("multer");
 
 // CREATES A LOCAL FOLDER
 const upload = multer({ dest: "uploads" });
+var request = require("request").defaults({ rejectUnauthorized: false });
 
 const cloudinary = require("cloudinary").v2;
 
@@ -99,14 +100,18 @@ app.post("/users", (req, res) => {
       req.body.username +
       "and password" +
       req.body.password,
+    tls: {
+      rejectUnauthorized: false,
+    },
+    secure: false,
   };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
+  // transporter.sendMail(mailOptions, function (error, info) {
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     console.log("Email sent: " + info.response);
+  //   }
+  // });
 });
 
 //////////////// Get all students ////////
@@ -165,7 +170,12 @@ app.post("/Cours", (req, res) => {
     err ? console.log(err) : res.send(data);
   });
 });
-
+app.post("/visibility", (req, res) => {
+  var array = [req.body.visibility, req.body.id];
+  db.updatevisibility(array, (err, data) => {
+    err ? console.log(err) : res.send(data);
+  });
+});
 /////////////auaathentification////////////
 
 app.put("/updateCC/:id", (req, res) => {

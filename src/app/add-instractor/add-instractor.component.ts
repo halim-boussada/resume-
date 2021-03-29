@@ -12,7 +12,7 @@ export class AddInstractorComponent implements OnInit {
   data: any;
   count: any = 0;
   ngOnInit(): void {
-    this.http.get("http://localhost:3000/courscreator").subscribe((data) => {
+    this.http.get("http://localhost:3000/instractor").subscribe((data) => {
       console.log(data);
       this.data = data;
       this.data.map((e) => {

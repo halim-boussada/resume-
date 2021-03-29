@@ -42,7 +42,7 @@ const getstudents = (callback) => {
   });
 };
 const getInstructors = (callback) => {
-  let sql = `select * from users where Role="instructor";`;
+  let sql = `select * from users where Role="Instractor";`;
   connection.query(sql, (err, data) => {
     if (err) throw callback(err, null);
     callback(null, data);
@@ -110,13 +110,21 @@ const logusers = (arr, callback) => {
 };
 //////////////Update PASSWORD /////////
 const updatepassword = (arr, callback) => {
-  let sql = "UPDATE users SET password= ? where id=?";
+  let sql = "UPDATE users SET password= ? , firstTime = false where id=?";
+  connection.query(sql, arr, (err, data) => {
+    if (err) throw callback(err, null);
+    callback(null, data);
+  });
+};
+const updatevisibility = (arr, callback) => {
+  let sql = "UPDATE Courses SET visibility = ?  WHERE id= ?;";
   connection.query(sql, arr, (err, data) => {
     if (err) throw callback(err, null);
     callback(null, data);
   });
 };
 module.exports = {
+  updatevisibility,
   updatepassword,
   getoneCours,
   getallCourses,

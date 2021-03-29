@@ -11,6 +11,10 @@ import { AddCoursComponent } from "./add-cours/add-cours.component";
 import { ManagCoursesComponent } from "./manag-courses/manag-courses.component";
 import { OneCoursComponent } from './one-cours/one-cours.component';
 import { RbkComponent } from './rbk/rbk.component';
+import { VisibilityComponent } from './visibility/visibility.component';
+import { StudentFeedComponent } from './student-feed/student-feed.component';
+import { InstractorFeedComponent } from './instractor-feed/instractor-feed.component';
+import { CcFeedComponent } from './cc-feed/cc-feed.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,10 @@ import { RbkComponent } from './rbk/rbk.component';
     ManagCoursesComponent,
     OneCoursComponent,
     RbkComponent,
+    VisibilityComponent,
+    StudentFeedComponent,
+    InstractorFeedComponent,
+    CcFeedComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],

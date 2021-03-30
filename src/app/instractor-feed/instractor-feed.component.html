@@ -50,7 +50,14 @@
           <b>RBK<br />Instractor</b>
         </h3>
       </div>
-      <div class="w3-bar-block"></div>
+      <div class="w3-bar-block">
+        <a (click)="switch(true)" class="w3-bar-item w3-button w3-hover-white"
+          >Student Feed</a
+        >
+        <a (click)="switch(false)" class="w3-bar-item w3-button w3-hover-white"
+          >Setup</a
+        >
+      </div>
     </nav>
 
     <!-- Top menu on small screens -->
@@ -88,7 +95,7 @@
       <!-- Modal for full size images on click-->
 
       <!-- The Team -->
-      <div class="w3-row-padding w3-grayscale">
+      <div class="w3-row-padding w3-grayscale" *ngIf="!student">
         <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
           <div
             class="card text-dark bg-light mb-3"
@@ -119,6 +126,33 @@
               >
                 Show
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-row-padding w3-grayscale" *ngIf="student">
+        <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
+          <div
+            *ngIf="d?.Cohort === Cohort && d?.visibility || d?.Cohort === 'everyone' && d?.visibility "
+          >
+            <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">
+                {{d?.nameCours }}
+              </div>
+              <!-- (click)="delete(d.id)" -->
+              <div class="card-body">
+                <h5 class="card-title">Created by {{d?.Creator }}</h5>
+                <p class="card-text">
+                  Cours is for {{d?.Cohort }}
+                </p>
+                <button
+                  class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+                  (click)="goOneCours(d.id)"
+                >
+                  Discover
+                </button>
+              </div>
             </div>
           </div>
         </div>

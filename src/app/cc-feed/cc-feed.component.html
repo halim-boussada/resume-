@@ -50,7 +50,14 @@
           <b>RBK<br />Cours Creator</b>
         </h3>
       </div>
-      <div class="w3-bar-block"></div>
+      <div class="w3-bar-block">
+        <a (click)="switch(true)" class="w3-bar-item w3-button w3-hover-white"
+          >Student Feed</a
+        >
+        <a (click)="switch(false)" class="w3-bar-item w3-button w3-hover-white"
+          >Setup</a
+        >
+      </div>
     </nav>
 
     <!-- Top menu on small screens -->
@@ -81,79 +88,113 @@
       <!-- Photo grid (modal) -->
 
       <!-- Contact -->
-      <div class="w3-container" id="contact" style="margin-top: 75px;">
-        <h1 class="w3-xxxlarge w3-text-red"><b>Add.</b></h1>
+      <div *ngIf="!student">
+        <div class="w3-container" id="contact" style="margin-top: 75px;">
+          <h1 class="w3-xxxlarge w3-text-red"><b>Add.</b></h1>
+          <hr style="width: 50px; border: 5px solid red;" class="w3-round" />
+          <p>
+            Do you want us to style your home? Fill out the form and fill me in
+            with the details :) We love meeting new people!
+          </p>
+          <div class="w3-section">
+            <label>Cours name</label>
+            <input
+              #nameCours
+              class="w3-input w3-border"
+              type="text"
+              name="Name"
+              required
+            />
+          </div>
+          <div class="w3-section">
+            <label>vedio</label>
+            <input
+              #videoUrl
+              class="w3-input w3-border"
+              type="text"
+              name="Email"
+              required
+            />
+          </div>
+          <div class="w3-section">
+            <label>image url</label>
+            <input
+              #imageUrl
+              class="w3-input w3-border"
+              type="text"
+              name="pass"
+              required
+            />
+          </div>
+          <div class="w3-section">
+            <label>content</label>
+            <textarea #content name="cohort" class="w3-input w3-border">
+            </textarea>
+          </div>
+
+          <button
+            class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+            (click)="addCours(content.value, nameCours.value, videoUrl.value, imageUrl.value,this.Cohort)"
+          >
+            Add cours
+          </button>
+        </div>
+        <div class="w3-row-padding w3-grayscale">
+          <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
+            <div
+              class="card text-dark bg-light mb-3"
+              style="max-width: 18rem;"
+              *ngIf="d?.Cohort === Cohort  || d?.Cohort === 'everyone'"
+            >
+              <div class="card-header">
+                {{d?.nameCours }}
+                <i class="material-icons" style="cursor: pointer;">delete</i>
+              </div>
+              <!-- (click)="delete(d.id)" -->
+              <div class="card-body">
+                <h5 class="card-title">Created by {{d?.Creator }}</h5>
+                <p class="card-text">
+                  Cours is for {{d?.Cohort }}
+                </p>
+                <button
+                  class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+                  (click)="goOneCours(d.id)"
+                >
+                  Discover
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w3-row-padding w3-grayscale" *ngIf="student">
+        <h1 class="w3-xxxlarge w3-text-red"><b>Student.</b></h1>
         <hr style="width: 50px; border: 5px solid red;" class="w3-round" />
         <p>
           Do you want us to style your home? Fill out the form and fill me in
           with the details :) We love meeting new people!
         </p>
-        <div class="w3-section">
-          <label>Cours name</label>
-          <input
-            #nameCours
-            class="w3-input w3-border"
-            type="text"
-            name="Name"
-            required
-          />
-        </div>
-        <div class="w3-section">
-          <label>vedio</label>
-          <input
-            #videoUrl
-            class="w3-input w3-border"
-            type="text"
-            name="Email"
-            required
-          />
-        </div>
-        <div class="w3-section">
-          <label>image url</label>
-          <input
-            #imageUrl
-            class="w3-input w3-border"
-            type="text"
-            name="pass"
-            required
-          />
-        </div>
-        <div class="w3-section">
-          <label>content</label>
-          <textarea #content name="cohort" class="w3-input w3-border">
-          </textarea>
-        </div>
-
-        <button
-          class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
-          (click)="addCours(content.value, nameCours.value, videoUrl.value, imageUrl.value,this.Cohort)"
-        >
-          Add cours
-        </button>
-      </div>
-      <div class="w3-row-padding w3-grayscale">
         <div class="w3-col m4 w3-margin-bottom" *ngFor="let d of data">
           <div
-            class="card text-dark bg-light mb-3"
-            style="max-width: 18rem;"
-            *ngIf="d?.Cohort === Cohort  || d?.Cohort === 'everyone'"
+            *ngIf="d?.Cohort === Cohort && d?.visibility || d?.Cohort === 'everyone' && d?.visibility "
           >
-            <div class="card-header">
-              {{d?.nameCours }}
-              <i class="material-icons" style="cursor: pointer;">delete</i>
-            </div>
-            <!-- (click)="delete(d.id)" -->
-            <div class="card-body">
-              <h5 class="card-title">Created by {{d?.Creator }}</h5>
-              <p class="card-text">
-                Cours is for {{d?.Cohort }}
-              </p>
-              <button
-                class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
-                (click)="goOneCours(d.id)"
-              >
-                Discover
-              </button>
+            <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">
+                {{d?.nameCours }}
+              </div>
+              <!-- (click)="delete(d.id)" -->
+              <div class="card-body">
+                <h5 class="card-title">Created by {{d?.Creator }}</h5>
+                <p class="card-text">
+                  Cours is for {{d?.Cohort }}
+                </p>
+                <button
+                  class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom"
+                  (click)="goOneCours(d.id)"
+                >
+                  Discover
+                </button>
+              </div>
             </div>
           </div>
         </div>

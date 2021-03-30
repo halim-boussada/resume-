@@ -13,6 +13,7 @@ export class InstractorFeedComponent implements OnInit {
   Cohort: any = localStorage.getItem("cohort");
   data: any;
   count: any = 0;
+  student: any = false;
   ngOnInit(): void {
     this.http.get("http://localhost:3000/allcourses").subscribe((data) => {
       console.log(data);
@@ -32,5 +33,8 @@ export class InstractorFeedComponent implements OnInit {
   }
   moveto(to) {
     this.router.navigateByUrl("/" + to);
+  }
+  switch(b) {
+    this.student = b;
   }
 }
